@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qy.mapper.MysqlMemberMapper">
+
+   <select id="findById" resultType="com.qy.po.MysqlMember" parameterType="java.lang.Long">
+     select * from member_base where id = #{id}
+   </select>
+
+    <select id="batchQueryWith1w" resultType="com.qy.po.MysqlMember" parameterType="java.util.Map">
+        select * from  member_base
+        where id > #{lastId} order by id ASC LIMIT #{limit}
+    </select>
+
+
+    <select id="minId" resultType="java.lang.Long">
+        select min(id) from member_base
+    </select>
+
+
+
+</mapper>

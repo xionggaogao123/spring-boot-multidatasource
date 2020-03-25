@@ -27,13 +27,16 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     DataSource dataSource;
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactoryBean() {
+    public SqlSessionFactory sqlSessionFactoryBean() throws Exception{
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("com.qy.po");
+
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+            bean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+           // bean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qy.mapper.OracleUserMapper">
+
+   <select id="findById" resultType="com.qy.po.OracleUser" parameterType="java.lang.Long">
+     select * from mc_user where id = #{id}
+   </select>
+
+
+    <insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="false">
+        <if test="list != null and list.size > 0">
+            INSERT INTO mc_user
+            (id, username, password, name, sex, title, phone, mobile, fax, email, country,
+            state, city, area, address, postcode, memberId, rights, mainUser, qq, weixin, adminWeixin, disabled,
+            registerTime, lastAccess, isFirstSendMsgToImportUser,old_system_id,business_type,PIC,type,ACCOUNT_NO,
+            MAIN_USER_ID,LOGIN_TIME,CREATE_TIME,OPERATOR_ID,OPERATOR_NAME,REG_TYPE,REG_SOURCE,VERSION,LAST_CALL_TIME,CONTACT)
+            SELECT MC_MEMBER_SEQ.NEXTVAL,a.* FROM (
+            <foreach collection="list" item="item" separator="union all">
+                SELECT
+                #{item.username}, #{item.password}, #{item.name,jdbcType=VARCHAR},
+                #{item.sex,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR},
+                #{item.mobile,jdbcType=VARCHAR}, #{item.fax,jdbcType=VARCHAR},
+                #{item.email,jdbcType=VARCHAR}, #{item.country,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR},
+                #{item.city,jdbcType=VARCHAR}, #{item.area,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR},
+                #{item.postcode,jdbcType=VARCHAR}, #{item.memberId},#{item.rights,jdbcType=VARCHAR},
+                #{item.mainUser}, #{item.qq,jdbcType=VARCHAR}, #{item.weixin,jdbcType=VARCHAR}, #{item.adminWeixin,jdbcType=VARCHAR},
+                #{item.disabled}, #{item.registerTime}, #{item.lastAccess}, #{item.firstSendMsgToImportUser},
+                #{item.id},#{item.businessType},#{item.pic,jdbcType=VARCHAR},#{item.type},#{item.accountNo},#{item.mainUserId},
+                #{item.loginTime},#{item.createTime},#{item.operatorId},#{item.operatorName,jdbcType=VARCHAR},
+                #{item.regType},#{item.regSource},#{item.version},#{item.lastCallTime},#{item.contact}
+                FROM dual
+            </foreach>
+            ) a
+        </if>
+    </insert>
+
+</mapper>
