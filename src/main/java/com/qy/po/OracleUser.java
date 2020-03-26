@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class OracleUser {
 
-    private long id;					// 用户代码
+    private Long id;					// 用户代码
 
     private String username = "";		// 用户名
     private String password = "";		// 密码
