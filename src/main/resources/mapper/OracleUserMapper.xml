@@ -15,7 +15,7 @@
             state, city, area, address, postcode, memberId, rights, mainUser, qq, weixin, adminWeixin, disabled,
             registerTime, lastAccess, isFirstSendMsgToImportUser,old_system_id,business_type,PIC,type,ACCOUNT_NO,
             MAIN_USER_ID,LOGIN_TIME,CREATE_TIME,OPERATOR_ID,OPERATOR_NAME,REG_TYPE,REG_SOURCE,VERSION,LAST_CALL_TIME,CONTACT)
-            SELECT MC_MEMBER_SEQ.NEXTVAL,a.* FROM (
+            SELECT MC_USER_SEQ.NEXTVAL,a.* FROM (
             <foreach collection="list" item="item" separator="union all">
                 SELECT
                 #{item.username}, #{item.password}, #{item.name,jdbcType=VARCHAR},
@@ -26,7 +26,7 @@
                 #{item.postcode,jdbcType=VARCHAR}, #{item.memberId},#{item.rights,jdbcType=VARCHAR},
                 #{item.mainUser}, #{item.qq,jdbcType=VARCHAR}, #{item.weixin,jdbcType=VARCHAR}, #{item.adminWeixin,jdbcType=VARCHAR},
                 #{item.disabled}, #{item.registerTime}, #{item.lastAccess}, #{item.firstSendMsgToImportUser},
-                #{item.id},#{item.businessType},#{item.pic,jdbcType=VARCHAR},#{item.type},#{item.accountNo},#{item.mainUserId},
+                #{item.oldSystemId},#{item.businessType},#{item.pic,jdbcType=VARCHAR},#{item.type},#{item.accountNo},#{item.mainUserId},
                 #{item.loginTime},#{item.createTime},#{item.operatorId},#{item.operatorName,jdbcType=VARCHAR},
                 #{item.regType},#{item.regSource},#{item.version},#{item.lastCallTime},#{item.contact}
                 FROM dual

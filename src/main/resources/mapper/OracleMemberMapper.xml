@@ -10,13 +10,13 @@
 
     <insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="false">
         <if test="list != null and list.size > 0">
-            INSERT INTO MC_MEMBER_SERVICE_REPORT
+            INSERT INTO mc_member
             (ID,  name, shortName, country, state, city, area, address, postcode, phone,
             fax, email, website, memberType, managerId, catalog, source, ipAddr,
             registerType, proxyRegistrantId, registerTime, lastLoginTime, lastServeTime,
             lastTransferTime, lastTransfer, visible, disabled, isAdd, isTao, benefit, isSave, memberSource, lastAccess,
-            OLD_SYSTEM_ID,BUSINESS_TYPE,COMPANY_NATURE,AREA_ID,AREA_CODE,AREA_NAME,CREATOR_ID,CREATOR_NAME,CREATE_TIME,OPERATOR_ID,OPERATOR_NAME,VERSION)
-            SELECT MC_MEMBER_SERVICE_REPORT_SEQ.NEXTVAL,a.* FROM (
+            OLD_SYSTEM_ID,BUSINESS_TYPE,COMPANY_NATURE,AREA_ID,AREA_CODE,AREA_NAME,CREATOR_ID,CREATOR_NAME,CREATE_TIME,OPERATOR_ID,OPERATOR_NAME,version)
+            SELECT MC_MEMBER_SEQ.NEXTVAL,a.* FROM (
             <foreach collection="list" item="item" separator="union all">
                 SELECT
                 #{item.name}, #{item.shortName}, #{item.country}, #{item.state}, #{item.city}, #{item.area}, #{item.address},
@@ -25,7 +25,7 @@
                 #{item.lastLoginTime}, #{item.lastServeTime},
                 #{item.lastTransferTime}, #{item.lastTransfer}, #{item.visible}, #{item.disabled}, #{item.isAdd}, #{item.isTao},
                 #{item.benefit}, #{item.isSave}, #{item.memberSource}, #{item.lastAccess},
-                #{item.id}, #{item.businessType}, #{item.companyNature}, #{item.areaId}, #{item.areaCode,jdbcType=VARCHAR},
+                #{item.oldSystemId}, #{item.businessType}, #{item.companyNature}, #{item.areaId}, #{item.areaCode,jdbcType=VARCHAR},
                 #{item.areaName,jdbcType=VARCHAR}, #{item.creatorId}, #{item.creatorName,jdbcType=VARCHAR}, #{item.creatorTime},
                 #{item.operatorId}, #{item.operatorName,jdbcType=VARCHAR}, #{item.version}
                 FROM dual
